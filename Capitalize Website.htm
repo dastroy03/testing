@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Professional Text Transformer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      color: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 8px rgba(0,0,0,0.1),
+        0 12px 24px rgba(0,0,0,0.08);
+      max-width: 700px;
+      width: 100%;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin: 0 0 24px 0;
+      font-weight: 600;
+      font-size: 2.4rem;
+      color: #0d3b66;
+      text-align: center;
+      user-select: none;
+      letter-spacing: 1.5px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 180px;
+      border: 2px solid #0d3b66;
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      color: #333;
+      transition: border-color 0.3s ease;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #3f72af;
+      box-shadow: 0 0 8px #3f72afaa;
+    }
+
+    .buttons {
+      margin-top: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    button {
+      background: linear-gradient(135deg, #3f72af, #112d4e);
+      border: none;
+      color: white;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(17, 45, 78, 0.4);
+      user-select: none;
+      /* Removed transitions and animations */
+      transform: none;
+    }
+
+    /* Disabled hover animation */
+    button:hover {
+      background: linear-gradient(135deg, #3f72af, #112d4e);
+      box-shadow: 0 4px 6px rgba(17, 45, 78, 0.4);
+      transform: none;
+      transition: none;
+    }
+
+    button:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 8px rgba(17, 45, 78, 0.4);
+      background: linear-gradient(135deg, #2e5a9f, #0a1f3a);
+    }
+
+    @media (max-width: 500px) {
+      button {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main">
+    <h1>Text Transformer</h1>
+    <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+    <div class="buttons" role="group" aria-label="Text transformation options">
+      <button type="button" onclick="toUpper()">UPPERCASE</button>
+      <button type="button" onclick="toLower()">lowercase</button>
+      <button type="button" onclick="capitalizeWords()">Capitalize</button>
+      <button type="button" onclick="reverseText()">Reverse</button>
+      <button type="button" onclick="clearText()">Clear</button>
+      <button type="button" onclick="copyText()">Copy</button>
+    </div>
+  </main>
+
+  <script>
+    const textInput = document.getElementById('textInput');
+
+    function toUpper() {
+      textInput.value = textInput.value.toUpperCase();
+    }
+
+    function toLower() {
+      textInput.value = textInput.value.toLowerCase();
+    }
+
+    function capitalizeWords() {
+      textInput.value = textInput.value
+        .toLowerCase()
+        .replace(/(?:^|\s|')[a-z]/g, char => char.toUpperCase());
+    }
+
+    function reverseText() {
+      textInput.value = textInput.value.split('').reverse().join('');
+    }
+
+    function clearText() {
+      textInput.value = '';
+      textInput.focus();
+    }
+
+    function copyText() {
+      if (!textInput.value) return alert('Nothing to copy!');
+      navigator.clipboard.writeText(textInput.value).then(() => {
+        alert('Text copied to clipboard!');
+      }, () => {
+        alert('Failed to copy text.');
+      });
+    }
+  </script>
+</body>
+</html>
